@@ -1,4 +1,5 @@
 <h2>Produtos</h2>
+
 <ul class="products">
   <li *ngFor="let product of products"
     [class.selected]="product === selectedProduct"
@@ -7,14 +8,4 @@
   </li>
 </ul>
 
-<div *ngIf="selectedProduct">
- 
-  <h2>{{selectedProduct.name | uppercase}} Detalhes</h2>
-  <div><span>Id: </span>{{selectedProduct.id}}</div>
-  <div>
-    <label>Nome:
-      <input [(ngModel)]="selectedProduct.name" placeholder="nome"/>
-    </label>
-  </div>
- 
-</div>
+<app-product-detail [product]="selectedProduct"></app-product-detail>
