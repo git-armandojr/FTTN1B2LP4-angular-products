@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Product } from '../product';
-import { PRODUCTS } from '../mock-products';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -9,9 +9,7 @@ import { ProductService } from '../product.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-
   products: Product[];
-  selectedProduct: Product;
 
   constructor(private productService: ProductService) { }
 
@@ -19,17 +17,23 @@ export class ProductsComponent implements OnInit {
     this.getProducts();
   }
 
-  onSelect(product: Product): void {
-    this.selectedProduct = product;
+  getProducts(): void {
+    this.productService.getProducts()
+    .subscribe(products => this.products = products);
   }
 
-  // Sem Observable
-  // getProducts(): void {
-  //   this.products = this.productService.getProducts();
-  // }
+  add(type: string): void {
+    type = type.trim();
+    if (!type) { return; }
+    this.productService.addProduct({ type } as Product)
+      .subscribe(product => {
+        this.products.push(product);
+      });
+  }
 
-  getProducts(): void {
-    this.productService.getProducts().subscribe(products => this.products = products);
+  delete(product: Product): void {
+    this.products = this.products.filter(h => h !== product);
+    this.productService.deleteProduct(product).subscribe();
   }
 
 }

@@ -1,11 +1,12 @@
 <div *ngIf="product">
-
-  <h2>{{product.name | uppercase}} Detalhes</h2>
-  <div><span>Id: </span>{{product.id}}</div>
+  <h2>{{product.type | uppercase}} Detalhes</h2>
+  <div><span>Id: </span>{{product._id}}</div>
   <div>
-    <label>Nome:
-      <input [(ngModel)]="product.name" placeholder="nome"/>
+    <label>Tipo:
+      <input [(ngModel)]="product.type" placeholder="tipo" />
     </label>
   </div>
-
+  
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
 </div>
